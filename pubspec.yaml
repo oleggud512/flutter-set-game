@@ -96,3 +96,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  
+# rps run
+scripts: 
+  # gen:
+  #   keys: dart run easy_localization:generate --source-dir assets/translations --output-dir lib/src/core/presentation/localization -f keys -o locale_keys.g.dart
+  #   loader: dart run easy_localization:generate --source-dir assets/translations --output-dir lib/src/core/presentation/localization
+  #   ll: rps run gen keys && rps run gen loader
+  #   ll10: flutter gen-l10n
+  w: dart run build_runner watch --delete-conflicting-outputs # watch
+  # wl: dart run scripts/watch_localization.dart # watch localization

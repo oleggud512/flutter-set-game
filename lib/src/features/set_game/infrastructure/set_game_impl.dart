@@ -50,7 +50,6 @@ class SetGameStateImpl extends Equatable implements SetGameState {
   List<Object?> get props => [table, selected, deckCount];
 }
 
-@Singleton(as: SetGame)
 class SetGameImpl implements SetGame {
 
   @override
