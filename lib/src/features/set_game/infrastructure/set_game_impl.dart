@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game.dart';
@@ -49,10 +50,11 @@ class SetGameStateImpl extends Equatable implements SetGameState {
   List<Object?> get props => [table, selected, deckCount];
 }
 
+@Singleton(as: SetGame)
 class SetGameImpl implements SetGame {
 
   @override
-  void choose(SetCard card) {
+  SetCardState choose(SetCard card) {
     // TODO: implement choose
     throw UnimplementedError();
   }
@@ -61,6 +63,11 @@ class SetGameImpl implements SetGame {
   Stream<SetGameState> watchGame() {
     // TODO: implement watchGame
     throw UnimplementedError();
+  }
+  
+  @override
+  void reset() {
+    // TODO: implement reset
   }
 
 }
