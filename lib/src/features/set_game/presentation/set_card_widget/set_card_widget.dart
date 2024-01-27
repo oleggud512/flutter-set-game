@@ -39,6 +39,20 @@ class _SetCardWidgetState extends State<SetCardWidget> {
 
   String get shapeAssetName => "assets/images/${widget.card.shape.value}-${widget.card.shade.value}.svg";
 
+  int get spacerFlex => switch (widget.card.number.value) {
+    1 => 3,
+    2 => 1,
+    3 => 1,
+    _ => 1
+  };
+  
+  int get itemFlex => switch (widget.card.number.value) {
+    1 => 2,
+    2 => 1,
+    3 => 2,
+    _ => 1,
+  };
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -52,13 +66,12 @@ class _SetCardWidgetState extends State<SetCardWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
-            for (int i = 0; i < widget.card.number.value-1; i++) ...[
-              Expanded(child: buildShape(context)),
-              w4gap, 
+            Spacer(flex: spacerFlex),
+            for (int i = 0; i < widget.card.number.value; i++) ...[
+              Expanded(flex: itemFlex, child: buildShape(context)),
+              if (i < widget.card.number.value-1) w4gap, 
             ],
-            Expanded(child: buildShape(context)),
-            Spacer()
+            Spacer(flex: spacerFlex)
           ]
         )
       ),
