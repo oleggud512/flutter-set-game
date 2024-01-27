@@ -4,17 +4,17 @@
    width="50"
    height="100"
    version="1.1"
-   id="svg13629"
-   sodipodi:docname="squiggle-solid.svg"
+   id="svg12044"
+   sodipodi:docname="squiggle-open.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs13633" />
+     id="defs12048" />
   <sodipodi:namedview
-     id="namedview13631"
+     id="namedview12046"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -24,17 +24,17 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="10.691455"
-     inkscape:cx="17.584137"
-     inkscape:cy="50.273796"
+     inkscape:cx="6.6408177"
+     inkscape:cy="42.136456"
      inkscape:window-width="2560"
      inkscape:window-height="1387"
      inkscape:window-x="1680"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg13629" />
+     inkscape:current-layer="svg12044" />
   <path
-     d="m 38.511455,62.677849 c 0,15.792354 10.888361,19.519742 10.492421,27.759231 C 48.50895,99.461283 28.11802,102.40396 15.942854,94.164468 3.7676867,85.924979 0.30320837,73.369567 6.7372397,56.890588 10.399688,49.533902 11.58751,43.158106 11.488525,37.272756 11.488525,21.480402 0.60016366,17.753014 0.99610405,9.5135251 1.4910295,0.58741163 21.88196,-2.4533523 34.057126,5.8842262 46.232293,14.221805 49.696771,26.679128 43.26274,43.158106 c -2.771583,6.96433 -4.6523,13.634393 -4.751285,19.519743 z"
+     d="m 38.511481,62.67787 c 0,15.79236 10.888367,19.51975 10.492426,27.759241 C 48.508982,99.461314 28.118038,102.40399 15.942863,94.1645 3.7676886,85.925008 0.30320792,73.369592 6.7372435,56.890607 10.399694,49.533918 11.587516,43.158121 11.488531,37.272769 11.488531,21.480409 0.6001634,17.75302 0.99610406,9.5135279 1.4910299,0.5874115 21.881973,-2.4533534 34.057148,5.8842278 46.232323,14.22181 49.696804,26.679137 43.262768,43.158121 40.491183,50.122453 38.610465,56.792519 38.511481,62.67787 Z"
      fill="#000000"
-     id="path13627"
-     style="stroke:#000000;stroke-width:1.97072;stroke-dasharray:none;stroke-opacity:1" />
+     id="path12042"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.971;stroke-dasharray:none;stroke-opacity:1" />
 </svg>

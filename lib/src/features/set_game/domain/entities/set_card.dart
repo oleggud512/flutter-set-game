@@ -14,8 +14,8 @@ enum SetNumber implements ValueEnum<int> {
 
 enum SetShape implements ValueEnum<String> {
   diamond("diamond"),
-  squiggle("diamond"),
-  oval("diamond");
+  squiggle("squiggle"),
+  oval("oval");
 
   @override
   final String value;

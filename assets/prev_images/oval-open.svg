@@ -4,17 +4,17 @@
    width="50"
    height="100"
    version="1.1"
-   id="svg13629"
-   sodipodi:docname="squiggle-solid.svg"
+   id="svg15339"
+   sodipodi:docname="oval-open.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs13633" />
+     id="defs15343" />
   <sodipodi:namedview
-     id="namedview13631"
+     id="namedview15341"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -24,17 +24,17 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="10.691455"
-     inkscape:cx="17.584137"
-     inkscape:cy="50.273796"
+     inkscape:cx="19.735388"
+     inkscape:cy="49.619067"
      inkscape:window-width="2560"
      inkscape:window-height="1387"
      inkscape:window-x="1680"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg13629" />
+     inkscape:current-layer="svg15339" />
   <path
-     d="m 38.511455,62.677849 c 0,15.792354 10.888361,19.519742 10.492421,27.759231 C 48.50895,99.461283 28.11802,102.40396 15.942854,94.164468 3.7676867,85.924979 0.30320837,73.369567 6.7372397,56.890588 10.399688,49.533902 11.58751,43.158106 11.488525,37.272756 11.488525,21.480402 0.60016366,17.753014 0.99610405,9.5135251 1.4910295,0.58741163 21.88196,-2.4533523 34.057126,5.8842262 46.232293,14.221805 49.696771,26.679128 43.26274,43.158106 c -2.771583,6.96433 -4.6523,13.634393 -4.751285,19.519743 z"
+     d="m 25,99.004888 c -10.802708,0 -19.504889,-8.612981 -19.504889,-19.304956 V 20.300066 C 5.495111,9.6080904 14.197292,0.99510998 25,0.99510998 c 10.802708,0 19.504889,8.61298042 19.504889,19.30495602 v 59.399866 c 0,10.691975 -8.702181,19.304956 -19.504889,19.304956 z"
      fill="#000000"
-     id="path13627"
-     style="stroke:#000000;stroke-width:1.97072;stroke-dasharray:none;stroke-opacity:1" />
+     id="path15337"
+     style="stroke:#000000;stroke-width:1.99022;stroke-dasharray:none;stroke-opacity:1;fill:none" />
 </svg>

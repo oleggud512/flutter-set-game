@@ -102,7 +102,6 @@ class SetGameImpl implements SetGame {
 
   SetGameImpl() {
     reset();
-    pushState();    
   }
 
   List<SetCard> deck = [];
@@ -147,7 +146,7 @@ class SetGameImpl implements SetGame {
       updatedTable[tableIndexes[1]] = deck[i+1];
       updatedTable[tableIndexes[2]] = deck[i+2];
       i++;
-    } while (_getSets(updatedTable).isNotEmpty);
+    } while (_getSets(updatedTable).isEmpty);
     i--; // TODO: ... ... ... what do I do with this?
     deck.removeRange(i, i+3);
 
@@ -162,7 +161,7 @@ class SetGameImpl implements SetGame {
     do {
       newTable = deck.sublist(i, i+12);
       i++;
-    } while (_getSets(newTable).isNotEmpty);
+    } while (_getSets(newTable).isEmpty);
     i--; // TODO: ... ... ... what do I do with this?
     deck.removeRange(i, i+12);
     table = newTable;
@@ -186,6 +185,7 @@ class SetGameImpl implements SetGame {
     deck = generateDeck();
     takeTable();
     selected.clear();
+    pushState();
   }
 
 }

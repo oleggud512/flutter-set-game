@@ -5,14 +5,39 @@
    height="100"
    version="1.1"
    id="svg4"
-   sodipodi:docname="diamond-solid.svg"
+   sodipodi:docname="diamond-striped.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs8" />
+     id="defs8">
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#Strips1_1"
+       id="pattern2904"
+       patternTransform="matrix(0,2.561165,-11.524702,1.9733357e-7,0,0)" />
+    <pattern
+       inkscape:collect="always"
+       patternUnits="userSpaceOnUse"
+       width="2"
+       height="1"
+
+       viewBox="0 0 2 1"
+       patternTransform="translate(0,0) scale(10,10)"
+       id="Strips1_1"
+       inkscape:stockid="Stripes 1:1">
+      <rect
+         style="fill:black;stroke:none"
+         x="0"
+         y="-0.5"
+         width="1"
+         height="2"
+         id="rect1875" />
+    </pattern>
+  </defs>
   <sodipodi:namedview
      id="namedview6"
      pagecolor="#ffffff"
@@ -24,7 +49,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="10.27"
-     inkscape:cx="9.4936709"
+     inkscape:cx="8.7633885"
      inkscape:cy="50"
      inkscape:window-width="2560"
      inkscape:window-height="1387"
@@ -33,8 +58,8 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4" />
   <path
-     d="M 25.000003,0.97070655 49.029186,50.000004 25.000003,99.029302 0.97081899,50.000004 Z"
+     d="M 25.000001,1.012961 48.986924,49.999996 25.000001,98.987029 1.0130785,49.999996 Z"
      fill="#000000"
      id="path2"
-     style="stroke:#000000;stroke-width:1.94166;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:url(#pattern2904);fill-opacity:1;stroke:#000000;stroke-width:2.02618;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
 </svg>

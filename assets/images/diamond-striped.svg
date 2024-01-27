@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 100" width="50" height="100">
+  <defs>
+    <pattern id="pattern-diamond" x="0" y="0" width="100" height="8" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="100" y2="0" stroke="#000" stroke-width="4"/>
+    </pattern>
+  </defs>
+  <g transform="translate(2, 2) scale(0.92, 0.96)">
+   <path d="M25 0 L50 50 L25 100 L0 50 Z" fill="url(#pattern-diamond)" stroke="#000" stroke-width="4"/>
+   <path d="M25 0 L50 50 L25 100 L0 50 Z" fill="none" stroke="#000" stroke-width="4"/>
+  </g>
+</svg>
