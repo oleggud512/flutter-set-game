@@ -4,7 +4,7 @@ import 'package:set_game/src/features/set_game/domain/interfaces/set_game.dart';
 import 'package:set_game/src/features/set_game/infrastructure/set_game_impl.dart';
 import 'package:set_game/src/get_it.config.dart';
 
-final injector = GetIt.instance;
+final getIt = GetIt.instance;
 
 @module
 abstract class RegisterModule {
@@ -16,4 +16,4 @@ abstract class RegisterModule {
 
 
 @InjectableInit()
-GetIt configureDependencies() => injector.init();
+GetIt configureDependencies() => getIt.init();
