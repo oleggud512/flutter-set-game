@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:rxdart/subjects.dart';
@@ -80,28 +81,45 @@ class SetGameStateImpl extends Equatable implements SetGameState {
 }
 
 class SetGameImpl implements SetGame {
-  static List<SetCard> generateDeck() {
-    final deck = <SetCard>[];
+  static List<SetCard> generateDeck({ 
+    bool numbers = true, 
+    bool shapes = true, 
+    bool shades = true, 
+    bool colors = true 
+  }) {
+    var deck = <SetCard>[];
+
     for (final number in SetNumber.values) {
       for (final shape in SetShape.values) {
         for (final shade in SetShade.values) {
           for (final color in SetColor.values) {
             deck.add(SetCard(
-              number: number, 
-              shape: shape, 
-              shade: shade, 
-              color: color
+              number: numbers ? number : SetNumber.one, 
+              shape: shapes ? shape : SetShape.diamond, 
+              shade: shades ? shade : SetShade.solid, 
+              color: colors ? color : SetColor.purple
             ));
           }
         }
       }
     }
+    
+    // deck = deck.toSet().toList();
+
     deck.shuffle();
     return deck;
   }
 
   SetGameImpl() {
     reset();
+  }
+
+  @override
+  void reset() {
+    deck = generateDeck();
+    takeTable();
+    selected.clear();
+    pushState();
   }
 
   List<SetCard> deck = [];
@@ -112,14 +130,24 @@ class SetGameImpl implements SetGame {
 
   @override
   SetCardState choose(SetCard card) {
+    if (selected.contains(card)) {
+      selected.remove(card);
+      pushState();
+      // TODO: or maybe correct or incorrect?
+      return SetCardState.available;
+    }
     selected.add(card);
 
     late SetCardState resultState;
+
+    var delay = 0;
 
     if (selected.length < 3) {
       resultState = SetCardState.choosen;
     } else {
       final isSet = _isSet(selected.toGameSet()!);
+      pushState();
+      delay = 100;
       if (isSet) {
         replaceSet();
         resultState = SetCardState.correct;
@@ -129,41 +157,63 @@ class SetGameImpl implements SetGame {
       selected.clear();
     }
 
-    pushState();
+    Future.delayed(Duration(milliseconds: delay), pushState);
+    // Future(pushState);
 
     return resultState;
   }
 
   void replaceSet() {
-    final tableIndexes = selected.map((card) => table.indexOf(card)).toList();
+
+    if (deck.isEmpty) {
+      for (final card in selected) {
+        table.remove(card);
+      }
+      return;
+    }
 
     final updatedTable = [...table];
 
-    var i = 0;
+    var deckIndexes = <int>[];
 
     do {
-      updatedTable[tableIndexes[0]] = deck[i];
-      updatedTable[tableIndexes[1]] = deck[i+1];
-      updatedTable[tableIndexes[2]] = deck[i+2];
-      i++;
+      deckIndexes.clear();
+      for (int i = 0; i < 3; i++) {
+        late int nextIndex;
+        do {
+          nextIndex = Random().nextInt(deck.length);
+        } while (deckIndexes.contains(nextIndex));
+        deckIndexes.add(nextIndex);
+      }
+      for (int i = 0; i < deckIndexes.length; i++) {
+        updatedTable[i] = deck[deckIndexes[i]];
+      }
     } while (_getSets(updatedTable).isEmpty);
-    i--; // TODO: ... ... ... what do I do with this?
-    deck.removeRange(i, i+3);
+    
+    final cardsToRemove = deckIndexes.map((i) => deck[i]).toList();
+
+    deck.removeWhere((card) => cardsToRemove.contains(card));
 
     table = updatedTable;
   }
 
   void takeTable() {
-    var newTable = [...table];
-
-    var i = 0;
+    var newTable = <SetCard>[];
 
     do {
-      newTable = deck.sublist(i, i+12);
-      i++;
+      newTable.clear();
+      for (int i = 0; i < 12; i++) {
+        late SetCard nextCard;
+        do {
+          nextCard = deck[Random().nextInt(deck.length)];
+        } while (newTable.contains(nextCard));
+        newTable.add(nextCard);
+      }
     } while (_getSets(newTable).isEmpty);
-    i--; // TODO: ... ... ... what do I do with this?
-    deck.removeRange(i, i+12);
+    
+    for (final card in newTable) {
+      deck.remove(card);
+    }
     table = newTable;
   }
 
@@ -171,21 +221,13 @@ class SetGameImpl implements SetGame {
     gameStateStream.sink.add(SetGameStateImpl(
       table: table, 
       deckCount: deck.length, 
-      selected: selected
+      selected: [...selected]
     ));
   }
   
   @override
   Stream<SetGameState> watchGame() {
     return gameStateStream.stream;
-  }
-  
-  @override
-  void reset() {
-    deck = generateDeck();
-    takeTable();
-    selected.clear();
-    pushState();
   }
 
 }

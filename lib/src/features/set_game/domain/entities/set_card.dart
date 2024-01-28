@@ -58,6 +58,20 @@ class SetCard extends Equatable {
     required this.color
   });
 
+  SetCard copyWith({
+    SetNumber? number,
+    SetShape? shape, 
+    SetShade? shade,
+    SetColor? color
+  }) {
+    return SetCard(
+      number: number ?? this.number,
+      shape: shape ?? this.shape,
+      shade: shade ?? this.shade,
+      color: color ?? this.color,
+    );
+  }
+
   @override
   List<Object?> get props => [number, shape, shade, color];
 }

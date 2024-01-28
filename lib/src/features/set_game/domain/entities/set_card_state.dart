@@ -2,5 +2,7 @@ enum SetCardState {
   available,
   choosen,
   correct,
-  incorrect
+  incorrect;
+
+  bool get isNotAvailable => this != available;
 }
