@@ -4,7 +4,7 @@ import 'package:set_game/src/core/common/constants/sizes.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game_set.dart';
-import 'package:set_game/src/features/set_game/presentation/set_card_widget/set_card_widget.dart';
+import 'package:set_game/src/features/set_game/presentation/set_card_widget/set_card_widget_content.dart';
 
 class HintSetWidget extends StatelessWidget {
   const HintSetWidget({
@@ -31,7 +31,7 @@ class HintSetWidget extends StatelessWidget {
     return Expanded(
       child: AspectRatio(
         aspectRatio: AppConst.cardAspectRatio,
-        child: SetCardWidget(card: card, cardState: SetCardState.available
+        child: SetCardWidgetContent(card: card, cardState: SetCardState.available
       )),
     );
   }

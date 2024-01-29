@@ -1,7 +1,13 @@
-part of 'set_card_widget.dart';
 
-class _SetCardWidgetContent extends StatefulWidget {
-  const _SetCardWidgetContent({
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:set_game/src/core/common/constants/app_constants.dart';
+import 'package:set_game/src/core/common/constants/sizes.dart';
+import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
+import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';
+
+class SetCardWidgetContent extends StatefulWidget {
+  const SetCardWidgetContent({
     super.key,
     required this.card,
     required this.cardState,
@@ -11,10 +17,10 @@ class _SetCardWidgetContent extends StatefulWidget {
   final SetCardState cardState;
 
   @override
-  State<_SetCardWidgetContent> createState() => _SetCardWidgetContentState();
+  State<SetCardWidgetContent> createState() => _SetCardWidgetContentState();
 }
 
-class _SetCardWidgetContentState extends State<_SetCardWidgetContent> {
+class _SetCardWidgetContentState extends State<SetCardWidgetContent> {
 
     Color get cardColor => switch (widget.card.color) {
     SetColor.red => Colors.red,
@@ -23,11 +29,11 @@ class _SetCardWidgetContentState extends State<_SetCardWidgetContent> {
   };
 
   // TODO: replace with some animation
-  Color get tempStateColor => switch (widget.cardState) {
-    SetCardState.available || SetCardState.choosen => Theme.of(context).colorScheme.surfaceVariant,
-    SetCardState.correct => Colors.green.shade300,
-    SetCardState.incorrect => Colors.red.shade300
-  };
+  // Color get tempStateColor => switch (widget.cardState) {
+  //   SetCardState.available || SetCardState.choosen => Theme.of(context).colorScheme.surfaceVariant,
+  //   SetCardState.correct => Colors.green.shade100,
+  //   SetCardState.incorrect => Theme.of(context).colorScheme.surfaceVariant
+  // };
 
   String get shapeAssetName => "assets/images/${widget.card.shape.value}-${widget.card.shade.value}.svg";
 
@@ -51,8 +57,9 @@ class _SetCardWidgetContentState extends State<_SetCardWidgetContent> {
     return Container(
       padding: const EdgeInsets.all(p8),
       decoration: BoxDecoration(
-        color: tempStateColor,
-        borderRadius: BorderRadius.circular(p16),
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        borderRadius: AppConst.cardBorderRadius,
+        border: Border.all(color: Theme.of(context).colorScheme.surfaceTint)
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

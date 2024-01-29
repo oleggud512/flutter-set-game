@@ -3,12 +3,18 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:set_game/src/core/common/logger.dart';
 import 'package:set_game/src/core/external/combinations.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';
+import 'package:set_game/src/features/set_game/domain/entities/set_game_state_state.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game_set.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game_state.dart';
+
+part "set_game_state_impl.dart";
+part "set_game_set_ext.dart";
+
 
 List<SetGameSet> _getSets(List<SetCard> cards) {
   final allSets = combinations(cards, 3);
@@ -22,6 +28,7 @@ List<SetGameSet> _getSets(List<SetCard> cards) {
   return correctSets;
 }
 
+
 bool _isSet(SetGameSet set) {
   final cards = set.toList();
   final numbers = cards.map((card) => card.number).toSet();
@@ -32,53 +39,6 @@ bool _isSet(SetGameSet set) {
     .every((len) => len != 2);
 }
 
-extension SetGameSetExt on SetGameSet {
-  bool isSet() {
-    return _isSet(this);
-  }  
-
-  List<SetCard> toList() {
-    return [$1, $2, $3];
-  }
-}
-
-extension _ListToSetExt on List {
-  SetGameSet? toGameSet() {
-    return length == 3
-      ? (this[0], this[1], this[2])
-      : null;
-  }
-}
-
-class SetGameStateImpl extends Equatable implements SetGameState {
-  const SetGameStateImpl({
-    required this.table, 
-    required this.deckCount,
-    required this.selected
-  });
-
-  final List<SetCard> selected;
-
-  @override
-  final List<SetCard> table;
-
-  @override
-  final int deckCount;
-
-  @override
-  SetCardState getCardState(SetCard card) {
-    if (!selected.contains(card)) return SetCardState.available;
-    if (selected.length < 3) return SetCardState.choosen;
-    if (_isSet(selected.toGameSet()!)) return SetCardState.correct;
-    return SetCardState.incorrect;
-  }
-
-  @override
-  List<SetGameSet> get hints => _getSets(table);
-  
-  @override
-  List<Object?> get props => [table, selected, deckCount];
-}
 
 class SetGameImpl implements SetGame {
   static List<SetCard> generateDeck({ 
@@ -122,6 +82,13 @@ class SetGameImpl implements SetGame {
     pushState();
   }
 
+  void pushState() {
+    final newState = createState();
+    glogger.i(newState.state);
+    gameStateStream.sink.add(newState);
+  }
+  
+
   List<SetCard> deck = [];
   List<SetCard> selected = [];
   List<SetCard> table = [];
@@ -140,16 +107,13 @@ class SetGameImpl implements SetGame {
 
     late SetCardState resultState;
 
-    var delay = 0;
-
     if (selected.length < 3) {
       resultState = SetCardState.choosen;
     } else {
       final isSet = _isSet(selected.toGameSet()!);
       pushState();
-      delay = 100;
       if (isSet) {
-        replaceSet();
+        replaceSelectedCorrectSet();
         resultState = SetCardState.correct;
       } else {
         resultState = SetCardState.incorrect;
@@ -157,13 +121,12 @@ class SetGameImpl implements SetGame {
       selected.clear();
     }
 
-    Future.delayed(Duration(milliseconds: delay), pushState);
-    // Future(pushState);
+    pushState();
 
     return resultState;
   }
 
-  void replaceSet() {
+  void replaceSelectedCorrectSet() {
 
     if (deck.isEmpty) {
       for (final card in selected) {
@@ -177,6 +140,7 @@ class SetGameImpl implements SetGame {
     var deckIndexes = <int>[];
 
     do {
+      // generate list of unique indexes
       deckIndexes.clear();
       for (int i = 0; i < 3; i++) {
         late int nextIndex;
@@ -185,13 +149,15 @@ class SetGameImpl implements SetGame {
         } while (deckIndexes.contains(nextIndex));
         deckIndexes.add(nextIndex);
       }
-      for (int i = 0; i < deckIndexes.length; i++) {
-        updatedTable[i] = deck[deckIndexes[i]];
+      // replace selected cards in table with random ones
+      for (int i = 0; i < 3; i++) {
+        final tableIndex = table.indexOf(selected[i]);
+        updatedTable[tableIndex] = deck[deckIndexes[i]];
       }
     } while (_getSets(updatedTable).isEmpty);
     
+    // remove taken cards from the deck
     final cardsToRemove = deckIndexes.map((i) => deck[i]).toList();
-
     deck.removeWhere((card) => cardsToRemove.contains(card));
 
     table = updatedTable;
@@ -217,17 +183,22 @@ class SetGameImpl implements SetGame {
     table = newTable;
   }
 
-  void pushState() {
-    gameStateStream.sink.add(SetGameStateImpl(
-      table: table, 
-      deckCount: deck.length, 
-      selected: [...selected]
-    ));
-  }
-  
   @override
   Stream<SetGameState> watchGame() {
     return gameStateStream.stream;
+  }
+
+  @override
+  SetGameState getGame() {
+    return createState();
+  }
+
+  SetGameStateImpl createState() {
+    return SetGameStateImpl(
+      table: table, 
+      deckCount: deck.length, 
+      selected: [...selected]
+    );
   }
 
 }

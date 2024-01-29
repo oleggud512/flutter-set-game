@@ -4,6 +4,7 @@ import 'package:set_game/src/features/set_game/domain/interfaces/set_game_state.
 
 abstract interface class SetGame { 
   Stream<SetGameState> watchGame();
+  SetGameState getGame();
   SetCardState choose(SetCard card);
   void reset();
 }
