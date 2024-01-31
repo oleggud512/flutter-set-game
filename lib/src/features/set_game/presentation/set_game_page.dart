@@ -65,7 +65,7 @@ class _SetGamePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    glogger.w(gameState.state);
+    // glogger.w(gameState.state);
     final hints = gameState.hints;
     return Scaffold(
       appBar: AppBar(

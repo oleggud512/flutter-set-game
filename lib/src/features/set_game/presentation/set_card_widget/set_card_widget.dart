@@ -36,8 +36,8 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
     duration: AppConst.elevateCardAnimatinoDuration
   );
   late final Animation<double> _elevateAnimation = Tween<double>(
-    begin: 0.0,
-    end: 100.0,
+    begin: 1.0,
+    end: 1.1,
   ).animate(CurvedAnimation(
     parent: _elevateController, 
     curve: Curves.ease
@@ -48,10 +48,20 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
     duration: 500.ms
   );
 
+  late final Animation<double> _popupAnimation = Tween<double>(
+    begin: 0,
+    end: 1.0,
+  ).animate(_popupAnimation);
+
   late final AnimationController _schimmerController = AnimationController(
     vsync: this, 
     duration: AppConst.incorrectSetAnimationDuration
   );
+
+  static const _schimmerColor = {
+    SetCardState.correct: Colors.green,
+    SetCardState.incorrect: Colors.red,
+  };
 
   late final flyingDuration = (AppConst.correctSetAnimationDuration.inMilliseconds - 
     _schimmerController.duration!.inMilliseconds).ms;
@@ -61,13 +71,9 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
     duration: flyingDuration
   );
 
-  Color get schimmerColor => switch (widget.cardState) {
-    SetCardState.correct => Colors.green,
-    SetCardState.incorrect => Colors.red,
-    _ => Colors.transparent,
-  };
+  static const _flyingRotation = -pi / 2;
 
-  var isHidden = false;
+  var _isHidden = false;
 
   @override
   void initState() { 
@@ -124,39 +130,37 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
     final currentSize = box.size;
     final endPosition = MediaQuery.of(context).size
       .bottomCenter(Offset.zero)
-      .translate(-currentSize.width / 2, currentSize.height + 20);
+      .translate(-currentSize.width / 2, currentSize.width + 20);
 
-    final xAxisTween = Tween<double>(
+    final xAxisAnimation = Tween<double>(
       begin: currentPosition.dx,
       end: endPosition.dx,
-    );
+    ).animate(_flyAwayController);
 
-    final yAxisTween = Tween<double>(
+    final yAxisAnimation = Tween<double>(
       begin: currentPosition.dy,
       end: endPosition.dy
     ).chain(CurveTween(
       curve: const ParabolicCurve()
-    ));
+    )).animate(_flyAwayController);
 
-    final rotationTween = Tween<double>(
+    final rotationAnimation = Tween<double>(
       begin: 0,
-      end: -radians(95)
-    );
+      end: _flyingRotation
+    ).animate(_flyAwayController);
 
     final entry = OverlayEntry(
       builder: (context) {
         return AnimatedBuilder(
           animation: _flyAwayController, 
           builder: (context, child) {
-            final x = xAxisTween.evaluate(_flyAwayController);
-            final y = yAxisTween.evaluate(_flyAwayController);
             return Positioned(
-              top: y,
-              left: x,
+              top: yAxisAnimation.value,
+              left: xAxisAnimation.value,
               child: Transform(
                 alignment: Alignment.center,
                 transform: Matrix4.identity()
-                  ..rotateZ(rotationTween.evaluate(_flyAwayController)),
+                  ..rotateZ(rotationAnimation.value),
                 child: child!,
               ),
             );
@@ -186,7 +190,7 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
       Overlay.of(context).insert(entry);
 
       setState(() {
-        isHidden = true;
+        _isHidden = true;
       });
     });
 
@@ -196,7 +200,7 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: isHidden ? 0 : 1,
+      opacity: _isHidden ? 0 : 1,
       child: GestureDetector(
         onTap: () {
           elevate();
@@ -205,10 +209,7 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
         child: ScaleTransition(
           scale: _popupController,
           child: AnimatedBuilder(
-            animation: Listenable.merge([
-              _elevateController,
-              _schimmerController
-            ]),
+            animation: _elevateController,
             builder: (context, child) {
               return buildElevated(
                 child: DecoratedBox(
@@ -221,19 +222,19 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
                       )
                     ]
                   ),
-                  child: Schimmer(
-                    schimmerWidth: p32,
-                    borderRadius: AppConst.cardBorderRadius,
-                    offset: _schimmerController.value,
-                    color: schimmerColor,
-                    child: child!
-                  ),
+                  child: child!,
                 ),
               );
             },
-            child: SetCardWidgetContent(
-              card: widget.card, 
-              cardState: widget.cardState
+            child: AnimatedSchimmer(
+              animation: _schimmerController,
+              schimmerWidth: p32,
+              borderRadius: AppConst.cardBorderRadius,
+              color: _schimmerColor[widget.cardState] ?? Colors.transparent,
+              child: SetCardWidgetContent(
+                card: widget.card, 
+                cardState: widget.cardState
+              )
             )
           ),
         )
@@ -242,12 +243,9 @@ class _SetCardWidgetState extends State<SetCardWidget> with TickerProviderStateM
   }
 
   Widget buildElevated({required Widget child}) {
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001)
-        ..translate(Vector3(0, 0, -_elevateAnimation.value)),
-      child: child,
+    return Transform.scale(
+      scale: _elevateAnimation.value,
+      child: child
     );
   }
 

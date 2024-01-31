@@ -84,7 +84,7 @@ class SetGameImpl implements SetGame {
 
   void pushState() {
     final newState = createState();
-    glogger.i(newState.state);
+    // glogger.i(newState.state);
     gameStateStream.sink.add(newState);
   }
   

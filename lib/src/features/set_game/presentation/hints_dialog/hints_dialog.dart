@@ -58,12 +58,13 @@ class _HintsDialogState extends State<HintsDialog> {
             ),
             bottomNavigationBar: BottomAppBar(
               child: ListTile(
+                onTap: () {
+                  widget.onIsShowHintChanged(!isShowHint);
+                  setState(() => isShowHint = !isShowHint);
+                },
                 leading: Checkbox(
-                  value: isShowHint, 
-                  onChanged: (newV) {
-                    setState(() => isShowHint = newV!);
-                    widget.onIsShowHintChanged(newV!);
-                  }
+                  value: isShowHint,
+                  onChanged: (_) {},
                 ),
                 title: Text("Always display hint".hardcoded)
               )
