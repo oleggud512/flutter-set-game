@@ -2,8 +2,6 @@ import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
 import 'package:set_game/src/core/common/constants/sizes.dart';
-import 'package:set_game/src/core/common/extensions/int.dart';
-import 'package:vector_math/vector_math_64.dart' show radians;
 
 class AnimatedSchimmer extends StatefulWidget {
   const AnimatedSchimmer({

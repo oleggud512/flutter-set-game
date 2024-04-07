@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:set_game/src/core/common/constants/sizes.dart';
 import 'package:set_game/src/core/common/extensions/string.dart';
 import 'package:set_game/src/core/common/presentation/dialog_widget.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game_set.dart';
 import 'package:set_game/src/features/set_game/presentation/hint_set_widget/hint_set_widget.dart';
-import 'package:set_game/src/features/set_game/presentation/set_game_page_bloc.dart';
 
 class HintsDialog extends StatefulWidget with DialogWidget<void> {
   const HintsDialog({

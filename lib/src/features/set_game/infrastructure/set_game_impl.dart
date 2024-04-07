@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:set_game/src/core/common/logger.dart';
 import 'package:set_game/src/core/external/combinations.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';

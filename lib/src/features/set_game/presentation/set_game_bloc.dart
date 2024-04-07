@@ -1,8 +1,6 @@
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:set_game/src/core/common/constants/app_constants.dart';
 import 'package:set_game/src/features/set_game/application/use_cases/choose_card_use_case.dart';
 import 'package:set_game/src/features/set_game/application/use_cases/get_game_use_case.dart';
@@ -11,7 +9,6 @@ import 'package:set_game/src/features/set_game/application/use_cases/watch_game_
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_game_state_state.dart';
 import 'package:set_game/src/features/set_game/domain/interfaces/set_game_state.dart';
-import 'package:set_game/src/features/set_game/infrastructure/set_game_impl.dart';
 
 sealed class SetGameEvent extends Equatable {}
 

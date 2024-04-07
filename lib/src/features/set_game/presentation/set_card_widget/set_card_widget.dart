@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:set_game/src/core/common/constants/app_constants.dart';
 import 'package:set_game/src/core/common/constants/sizes.dart';
 import 'package:set_game/src/core/common/extensions/int.dart';
-import 'package:set_game/src/core/common/logger.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card.dart';
 import 'package:set_game/src/features/set_game/domain/entities/set_card_state.dart';
 import 'package:set_game/src/features/set_game/presentation/set_card_widget/schimmer.dart';
 import 'package:set_game/src/features/set_game/presentation/set_card_widget/set_card_widget_content.dart';
 import 'package:set_game/src/features/set_game/presentation/set_card_widget/parabolic_curve.dart';
-import 'package:vector_math/vector_math_64.dart' show Vector3, radians;
 
 class SetCardWidget extends StatefulWidget {
   const SetCardWidget({
