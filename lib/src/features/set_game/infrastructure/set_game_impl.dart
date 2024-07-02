@@ -59,7 +59,7 @@ class SetGameImpl implements SetGame {
               color: colors ? color : SetColor.purple
             ));
           }
-        }
+       }
       }
     }
     
